@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/WasabiEncryptedSecretTester/bin/Debug/netcoreapp2.2/WasabiEncryptedSecretTester.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/WasabiEncryptedSecretTester",
+            "program": "${workspaceFolder}/bin/Debug/netcoreapp2.2/WasabiPasswordFinder.dll",
+            "args": ["mother scan ethics such vocal zebra law rigid survey tool elbow involve", "papo", "bc1qvwwdvgazdtelra6rsprtq3mzfjrz0y9zyaw0f0"],
+            "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"

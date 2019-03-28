@@ -11,23 +11,26 @@ namespace WasabiPasswordFinder
         private static char[] chars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789!@$?_- \"#$%&()=".ToArray(); 
         private static void Main(string[] args)
         {
-            if (args.Length != 2)
+            if (args.Length != 3)
             {
-                Console.WriteLine("Please provide exactly 2 arguments. Example: dotnet run \"6PYSeErf23ArQL7xXUWPKa3VBin6cuDaieSdABvVyTA51dS4Mxrtg1CpGN\" \"password\"");
+                Console.WriteLine("Please provide exactly 2 arguments. Example: dotnet run \"word1 word2 word3.... word12\" \"password\" \"address\"");
                 return;
             }
 
-            BitcoinEncryptedSecretNoEC encryptedSecret;
+            var seed = args[0];
+            var password = args[1];
+            var address = args[2];
+
+            Mnemonic mnemonic;
             try
             {
-                encryptedSecret = new BitcoinEncryptedSecretNoEC(args[0]);
+                mnemonic = new Mnemonic(seed);
             }
             catch(FormatException)
             {
                 Console.WriteLine("ERROR: The encrypted secret is invalid. Make sure you copied correctly from your wallet file.");
                 return;
             }
-            var password = args[1];
 
             Console.WriteLine($"WARNING: This tool will display you password if it finds it. Also, the process status display your wong password chars.");
             Console.WriteLine($"         You can cancel this by CTRL+C combination anytime.");
@@ -45,9 +48,15 @@ namespace WasabiPasswordFinder
                     var newPassword = new string(pwChar); 
                     try
                     {
-                        encryptedSecret.GetKey(newPassword);
-                        Console.WriteLine("Password found: " + newPassword);
-                        goto end;
+                        var extKey = mnemonic.DeriveExtKey(newPassword);
+                        var pubKey = extKey.Derive(new KeyPath("m/84'/0'/0'/0/0")).Neuter().PubKey;
+
+                        var firstAddress = pubKey.GetSegwitAddress(Network.Main).ToString();
+                        if(firstAddress == address)
+                        {
+                            Console.WriteLine("Password found: " + newPassword);
+                            goto end;
+                        }
                     }
                     catch (SecurityException)
                     {
