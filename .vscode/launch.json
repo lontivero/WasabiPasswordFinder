@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/WasabiEncryptedSecretTester/bin/Debug/netcoreapp2.2/WasabiEncryptedSecretTester.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/WasabiEncryptedSecretTester",
+            "program": "${workspaceFolder}/bin/Debug/netcoreapp2.2/WasabiPasswordFinder.dll",
+            "args": ["-s" , "6PYSeErf23ArQL7xXUWPKa3VBin6cuDaieSdABvVyTA51dS4Mxrtg1CpGN", "-p", "Marianella"],
+            "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"

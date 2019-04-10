@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/WasabiEncryptedSecretTester/WasabiEncryptedSecretTester.csproj"
+                "${workspaceFolder}/WasabiPasswordFinder.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
